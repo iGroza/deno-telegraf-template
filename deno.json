@@ -1,0 +1,30 @@
+{
+  "tasks": {
+    "start": "deno run --env-file=.env --allow-env --allow-read --allow-write --allow-net ./src/main.ts",
+    "dev": "deno run --env-file=.env --allow-env --allow-read --allow-write --allow-net --watch ./src/main.ts",
+    "compile:macos:arm64": "deno compile -A --no-check --target aarch64-apple-darwin --output ./bin/bot_macos_arm64 ./src/main.ts",
+    "compile:macos:x86_64": "deno compile -A --no-check --target x86_64-apple-darwin --output ./bin/bot_macos_x86_64 ./src/main.ts",
+    "compile:linux:arm64": "deno compile -A --no-check --target aarch64-unknown-linux-gnu --output ./bin/bot_linux_arm64 ./src/main.ts",
+    "compile:linux:x86_64": "deno compile -A --no-check --target x86_64-unknown-linux-gnu --output ./bin/bot_linux_x86_64 ./src/main.ts",
+    "compile:windows:x86_64": "deno compile -A --no-check --target x86_64-pc-windows-msvc --output ./bin/bot_windows_x86_64 ./src/main.ts",
+    "compile": "deno cache --reload ./src/main.ts && rm -rf ./bin && mkdir -p ./bin && deno task compile:macos:arm64 && deno task compile:macos:x86_64 && deno task compile:linux:arm64 && deno task compile:linux:x86_64 && deno task compile:windows:x86_64"
+  },
+  "imports": {
+    "@std/assert": "jsr:@std/assert@1",
+    "@telegraf": "npm:telegraf@4.16.3",
+    "@telegraf/session": "npm:@telegraf/session@2.0.0-beta.7",
+    "@telegraf/types": "npm:@telegraf/types@8.3.1",
+    "sqlite": "https://deno.land/x/sqlite@v3.9.1/mod.ts",
+    "yargs": "https://deno.land/x/yargs@v17.7.2-deno/deno.ts",
+    "yargs/types": "https://deno.land/x/yargs@v17.7.2-deno/deno-types.ts"
+  },
+  "fmt": {
+    "useTabs": true,
+    "lineWidth": 80,
+    "indentWidth": 4,
+    "semiColons": false,
+    "singleQuote": true,
+    "proseWrap": "preserve",
+    "include": ["src/"]
+  }
+}
